@@ -64,7 +64,7 @@ Time &Time::operator++() {
 
 Time Time::operator++(int unused) {
   Time clone(hours, minutes);
-  minutes += 1;
+  clone.add_minute(); 
   return clone;
 }
 
