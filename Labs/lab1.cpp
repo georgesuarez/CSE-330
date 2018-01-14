@@ -1,8 +1,6 @@
 #include <unistd.h>
 #include <iostream>
 
-using namespace std;
-
 class Time {
  public:
   Time(int h, int m);
@@ -64,6 +62,7 @@ int main() {
   Time end = Time(1, 15);
 
   for (int i = 0; i < 75; i++) {
+    sleep(60); // sleep for 60 seconds
     end--;  
   }
 
