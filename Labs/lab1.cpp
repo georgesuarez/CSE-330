@@ -14,16 +14,13 @@ class Time {
   void operator++();     // prefix
   void operator++(int);  // postfix
   void operator--();     // prefix
-  void operator--(int);  // postfix 
+  void operator--(int);  // postfix
  private:
   int hours;
   int minutes;
 };
 
-Time::Time(int h, int m) {
-  hours = h;
-  minutes = m;
-}
+Time::Time(int hours, int minutes) : hours(hours), minutes(minutes) {}
 
 int Time::gethours() const { return hours; }
 
@@ -53,25 +50,24 @@ void Time::addminute() {
 }
 
 void Time::subtractminute() {
-    minutes--;
-    if (minutes ==  0) {
-        minutes = 59;
-        hours--;
-    } 
+  minutes--;
+  if (minutes == 0) {
+    minutes = 59;
+    hours--;
+  }
 
-    if (hours == 0) hours = 1;
+  if (hours == 0) hours = 1;
 }
 
 int main() {
   Time start = Time(12, 0);
   Time end = Time(1, 15);
-  
+
   for (int i = 0; i < 75; i++) {
-      end--;  // add one minute
+    end--;  
   }
 
   if (start == end) {
-      std::cout << "Class dismissed." << '\n';
+    std::cout << "Class dismissed." << '\n';
   }
-  
 }
