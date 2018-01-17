@@ -7,7 +7,7 @@ class Time {
   int gethours() const;
   int getminutes() const;
   void addminute();
-  void subtractminute();
+  void minusminute();
   bool operator==(Time t);
   void operator++();     // prefix
   void operator++(int);  // postfix
@@ -34,9 +34,9 @@ void Time::operator++() { this->addminute(); }
 
 void Time::operator++(int) { this->addminute(); }
 
-void Time::operator--() { this->subtractminute(); }
+void Time::operator--() { this->minusminute(); }
 
-void Time::operator--(int) { this->subtractminute(); }
+void Time::operator--(int) { this->minusminute(); }
 
 void Time::addminute() {
   minutes++;
@@ -47,14 +47,14 @@ void Time::addminute() {
   if (hours == 13) hours = 1;
 }
 
-void Time::subtractminute() {
+void Time::minusminute() {
   minutes--;
-  if (minutes == 0) {
+  if (minutes == -1) {
     minutes = 59;
     hours--;
   }
 
-  if (hours == 0) hours = 1;
+  if (hours == 0) hours = 12;
 }
 
 int main() {
