@@ -5,7 +5,6 @@
 template <typename T>
 class Stack
 {
-<<<<<<< HEAD
   public:
     Stack();
     void push(T data);
@@ -15,16 +14,6 @@ class Stack
 
   private:
     std::vector<T> stack;
-=======
-public:
-  Stack();
-  void push(T data);
-  void pop();
-  T get_top();
-  bool is_empty();
-private:
-  std::vector<T> stack;
->>>>>>> 5b7a52337a1d9224feb12ea9e510d3fb0885880b
 };
 
 template <typename T>
@@ -33,11 +22,7 @@ Stack<T>::Stack() {}
 template <typename T>
 void Stack<T>::push(T data)
 {
-<<<<<<< HEAD
     stack.push_back(data);
-=======
-  stack.push_back(data);
->>>>>>> 5b7a52337a1d9224feb12ea9e510d3fb0885880b
 }
 
 template <typename T>
@@ -49,11 +34,7 @@ void Stack<T>::pop()
 template <typename T>
 T Stack<T>::get_top()
 {
-<<<<<<< HEAD
     return stack.back();
-=======
-  return stack.back();
->>>>>>> 5b7a52337a1d9224feb12ea9e510d3fb0885880b
 }
 
 template <typename T>
@@ -182,15 +163,9 @@ std::string infix_to_postfix(std::string x)
     while (!s.is_empty())
     {
         y += s.get_top();
-<<<<<<< HEAD
         s.pop();
     }
     return y;
-=======
-    }
-  
-  return y;
->>>>>>> 5b7a52337a1d9224feb12ea9e510d3fb0885880b
 }
 
 
