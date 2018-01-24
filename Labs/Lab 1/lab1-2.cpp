@@ -104,6 +104,8 @@ int prec(char x)
 std::string infix_to_postfix(std::string x)
 {
     Stack<char> s = Stack<char>();
+    s.push('[');
+    x.append("]");
     std::string y;
     int index = 0; 
 
@@ -119,9 +121,9 @@ std::string infix_to_postfix(std::string x)
             {
                 s.push(x[index]);
             }
-            else if (x[index] == ')')
+            else if (x[index] == ')' || x[index] == ']')
             {
-                while (!s.is_empty() && s.get_top() != '(')
+                while (!s.is_empty() && s.get_top() != '(' && s.get_top() != '[')
                 {
                     y += s.get_top();
                     s.pop();
@@ -172,7 +174,7 @@ std::string infix_to_postfix(std::string x)
 int main()
 {
     std::string infix_expr1 = "(A+B)*C-(D/(J+D))";
-
+    
     std::cout << infix_expr1 << " translates to: " << infix_to_postfix(infix_expr1) << '\n';
     return 0;
 }
