@@ -1,3 +1,9 @@
+// CSE 330 Data Structures Lab
+// Section: Monday
+// Term: Winter 2018
+// Name: George Suarez
+// Lab 1: Time
+
 #include <iostream>
 #include <string>
 #include <vector>

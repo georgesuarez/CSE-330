@@ -1,3 +1,9 @@
+// CSE 330 Data Structures Lab
+// Section Monday
+// Term: Winter 2018
+// Name: George Suarez
+// Lab 1: Infix to Postfix
+
 #include <unistd.h>
 #include <iostream>
 
@@ -74,7 +80,7 @@ int main()
 
   for (int i = 0; i < 75; i++)
   {
-    sleep(60);
+    std::cout << end.get_hours() << ":" << end.get_minutes() << '\n';
     end--;
   }
 
@@ -82,4 +88,6 @@ int main()
   {
     std::cout << "Class dismissed." << '\n';
   }
+
+  return 0;
 }
