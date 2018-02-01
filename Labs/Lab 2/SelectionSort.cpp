@@ -2,63 +2,59 @@
 // Section: Monday
 // Term: Winter 2018
 // Name: George Suarez
-// Lab 2: Complexity Analysis 
+// Lab 2: Complexity Analysis
+// File: SelectionSort.cpp
 
 #include <cstdlib>
 #include <vector>
 #include <iostream>
 
-template<typename T>
-void swap( T& a, T& b )
+template <typename T>
+void swap(T& a, T& b)
 {
     T temp = a;
     a = b;
     b = temp;
 }
 
-void selSort( std::vector<int>& v )
+void selSort(std::vector<int>& v)
 {
-    for ( int i = 0; i < v.size(); i++ )
+    int n = v.size();
+    for (int i = 0; i < n - 1; i++)
     {
-        int smallest = v[i]; 
-        int smallest_index = i;
-        for ( int j = i; j < v.size(); j++ )
+        for (int j = i + 1; j < n; j++)
         {
-           if ( v[j] < smallest )
-           {
-               smallest = v[j];
-               smallest_index = j;
-           } 
+            if (v[i] > v[j])
+            {
+                swap(v[i], v[j]);
+            }
         }
-        swap( v[i],v[smallest_index] );
     }
 }
 
 int main()
 {
     clock_t start, finish;
-    srand( time( nullptr ) );
+    srand(time(nullptr));
     std::vector<int> v;
     int n = 0;
 
-    std::cout << "Enter size of input: " << " "; 
+    std::cout << "Enter size of input: "
+              << " ";
     std::cin >> n;
 
-    for ( int i = 0; i < n; i++ )
+    for (int i = 0; i < n; i++)
     {
-        v.push_back( rand() % 100 + 1 );
+        v.push_back(rand() % 100 + 1);
     }
-    
+
     start = clock();
-    selSort( v );
+    selSort(v);
     finish = clock();
 
-    // for ( int i = 0; i < v.size(); i++ )
-    // {
-    //     std::cout << v[i] << ' ';
-    // }
-    
-    std::cout << "Time = " << finish - start << '\n';
+    double cpu_time_used = ((double) (finish - start)) / CLOCKS_PER_SEC;
+
+    std::cout << "Time = " << cpu_time_used << '\n';
 
     return 0;
 }

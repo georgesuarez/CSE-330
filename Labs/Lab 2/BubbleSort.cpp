@@ -2,29 +2,30 @@
 // Section: Monday
 // Term: Winter 2018
 // Name: George Suarez
-// Lab 2: Complexity Analysis 
+// Lab 2: Complexity Analysis
+// File: BubbleSort.cpp
 
 #include <vector>
 #include <cstdlib>
 #include <iostream>
 
-template<typename T>
-void swap( T& a,T& b )
+template <typename T>
+void swap(T &a, T &b)
 {
     T temp = a;
     a = b;
     b = temp;
 }
 
-void bubbleSort( std::vector<int>& v )
+void bubbleSort(std::vector<int> &v)
 {
-    for ( int i = 0; i < v.size(); i++ )
+    for (int i = 0; i < v.size(); i++)
     {
-        for ( int j = i + 1; j < v.size(); j++ )
+        for (int j = i + 1; j < v.size(); j++)
         {
-            if ( v[j] > v[j + 1] )
+            if (v[j] > v[j + 1])
             {
-                swap( v[j], v[j + 1] );
+                swap(v[j], v[j + 1]);
             }
         }
     }
@@ -33,23 +34,25 @@ void bubbleSort( std::vector<int>& v )
 int main()
 {
     clock_t start, finish;
-    srand( time( nullptr ) );
+    srand(time(nullptr));
     std::vector<int> v;
     int n = 0;
 
     std::cout << "Enter size of input: " << ' ';
     std::cin >> n;
 
-    for ( int i = 0; i < n; i++ )
+    for (int i = 0; i < n; i++)
     {
-        v.push_back( rand() );
+        v.push_back(rand());
     }
 
     start = clock();
-    bubbleSort( v );
+    bubbleSort(v);
     finish = clock();
 
-    std::cout << "Time = " << finish - start << '\n';
+    double cpu_time_used = ((double) (finish - start)) / CLOCKS_PER_SEC;
+
+    std::cout << "Time = " << cpu_time_used << '\n';
 
     return 0;
 }
