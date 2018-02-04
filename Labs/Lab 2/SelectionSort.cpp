@@ -39,22 +39,19 @@ int main()
     std::vector<int> v;
     int n = 0;
 
-    std::cout << "Enter size of input: "
-              << " ";
+    std::cout << "Enter size of input: ";
     std::cin >> n;
 
     for (int i = 0; i < n; i++)
     {
-        v.push_back(rand() % 100 + 1);
+        v.push_back(rand());
     }
 
     start = clock();
     selSort(v);
     finish = clock();
 
-    double cpu_time_used = ((double) (finish - start)) / CLOCKS_PER_SEC;
-
-    std::cout << "Time = " << cpu_time_used << '\n';
+    std::cout << "Time = " << finish - start << '\n';
 
     return 0;
 }

@@ -19,9 +19,10 @@ void swap(T &a, T &b)
 
 void bubbleSort(std::vector<int> &v)
 {
-    for (int i = 0; i < v.size(); i++)
+    int n = v.size();
+    for (int i = n - 1; i > 0; i--)
     {
-        for (int j = i + 1; j < v.size(); j++)
+        for (int j = 0; j < i; j++)
         {
             if (v[j] > v[j + 1])
             {
@@ -38,7 +39,7 @@ int main()
     std::vector<int> v;
     int n = 0;
 
-    std::cout << "Enter size of input: " << ' ';
+    std::cout << "Enter size of input: ";
     std::cin >> n;
 
     for (int i = 0; i < n; i++)
@@ -50,9 +51,7 @@ int main()
     bubbleSort(v);
     finish = clock();
 
-    double cpu_time_used = ((double) (finish - start)) / CLOCKS_PER_SEC;
-
-    std::cout << "Time = " << cpu_time_used << '\n';
+    std::cout << "Time = " << finish - start << '\n';
 
     return 0;
 }
