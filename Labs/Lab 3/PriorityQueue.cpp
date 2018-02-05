@@ -6,7 +6,6 @@
 // File: PriorityQueue.cpp
 
 #include <vector>
-#include <string>
 #include <iostream>
 
 template <typename T>
@@ -16,13 +15,13 @@ class PQ
     PQ();
     PQ(std::vector<T> pq);
     int size() const;
-    T frontOfQueue() const;
+    T front_of_queue() const;
     void print();
     void add(T x);
     void remove();
 
   private:
-    void selectionSort(std::vector<T> &v)
+    void sort(std::vector<T> &v)
     {
         int n = v.size();
         for (int i = 0; i < n - 1; i++)
@@ -56,7 +55,7 @@ template <typename T>
 PQ<T>::PQ(std::vector<T> pq_)
 {
     pq = pq_;
-    this->selectionSort(pq);
+    this->sort(pq);
 }
 
 template <typename T>
@@ -66,7 +65,7 @@ int PQ<T>::size() const
 }
 
 template <typename T>
-T PQ<T>::frontOfQueue() const
+T PQ<T>::front_of_queue() const
 {
     return pq.front();
 }
@@ -108,18 +107,17 @@ void PQ<T>::remove()
 int main()
 {
     srand(time(nullptr));
-    std::vector<int> data;
+    PQ<int> pq = PQ<int>();
 
-    for (size_t i = 0; i < 10; i++)
+    for (int i = 0; i < 10; i++)
     {
-        data.push_back(rand() % 100 + 1);
+        pq.add(rand() % 100 + 1);
     }
 
-    PQ<int> pq = PQ<int>(data);
-
     pq.print();
-    pq.add(15);
-    std::cout << "Front of queue: " << pq.frontOfQueue() << '\n';
+    pq.add(rand() % 100 + 1);
+    std::cout << "Front of queue: " << pq.front_of_queue() << '\n';
+    std::cout << pq.front_of_queue() << " has been removed." << '\n';
     pq.remove();
     pq.print();
 
