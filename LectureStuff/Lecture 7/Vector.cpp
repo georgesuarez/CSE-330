@@ -1,25 +1,26 @@
 #include <iostream>
-#include <algorithm>
 #include <cassert>
+#include <ctime>
 
 template <typename T>
-class MyVector
+class Mvector
 {
   public:
-    MyVector();
-    MyVector(unsigned int n);
-    void push_back(const T &x);
+    Mvector();
+    Mvector(unsigned int n);
+    ~Mvector();
+    void push_back(const T& x);
     void pop_back();
     void clear();
     void insert(int i, T x);
     void erase(int i);
-    T &operator[](unsigned int i);
+    T& operator[](unsigned int i);
     int size() const;
 
   private:
     int vsize; // number of elements in use in the array v
     int vcap;  // actual size of the array v
-    T *v;
+    T* v;
     void reserve(unsigned int n)
     {
         if (n < vsize)
@@ -27,7 +28,7 @@ class MyVector
             return;
         }
 
-        T *NewV = new T[n];
+        T* NewV = new T[n];
 
         for (int i = 0; i < vsize; i++)
         {
@@ -41,33 +42,39 @@ class MyVector
 };
 
 template <typename T>
-MyVector<T>::MyVector()
+Mvector<T>::Mvector()
 {
     vsize = 0;
     vcap = 10;
-    T *NewV = new T[vcap];
+    T* NewV = new T[vcap];
     v = NewV;
 }
 
 template <typename T>
-MyVector<T>::MyVector(unsigned int n)
+Mvector<T>::Mvector(unsigned int n)
 {
     assert(n >= 0);
 
     vsize = n;
     vcap = vsize * 2;
-    T *NewV = new T[vcap];
+    T* NewV = new T[vcap];
     v = NewV;
 }
 
 template <typename T>
-T &MyVector<T>::operator[](unsigned int i)
+Mvector<T>::~Mvector()
+{
+    delete [] v;
+}
+
+template <typename T>
+T& Mvector<T>::operator[](unsigned int i)
 {
     return v[i];
 }
 
 template <typename T>
-void MyVector<T>::push_back(const T &x)
+void Mvector<T>::push_back(const T &x)
 {
     if (vsize == vcap)
     {
@@ -80,28 +87,28 @@ void MyVector<T>::push_back(const T &x)
 }
 
 template <typename T>
-void MyVector<T>::pop_back()
+void Mvector<T>::pop_back()
 {
     vsize--;
 }
 
-// TODO: Finish this implementation
 template <typename T>
-void MyVector<T>::clear()
+void Mvector<T>::clear()
 {
-    delete [] v;
+    vcap = 10;
+    vsize = 0;
 }
 
-// TODO: Finish this implementation
+
 template <typename T>
-void MyVector<T>::insert(int i, T x)
+void Mvector<T>::insert(int i, T x)
 {
     v[i] = x;
 }
 
 // TODO: Finish this implementation
 template <typename T>
-void MyVector<T>::erase(int i)
+void Mvector<T>::erase(int i)
 {
     T *NewV = new T[vcap];
     for (int k = 0; k < vsize; k++)
@@ -117,22 +124,25 @@ void MyVector<T>::erase(int i)
 }
 
 template <typename T>
-int MyVector<T>::size() const
+int Mvector<T>::size() const
 {
     return vsize;
 }
 
 int main()
 {
+    srand(time(nullptr));
+    Mvector<int> v = Mvector<int>();
 
-    MyVector<int> v = MyVector<int>();
-    v.push_back(10);
-    v.push_back(20);
-    v.push_back(30);
-    v.pop_back();
-    v.clear();
+    for (int i = 0; i < 100; i++)
+    {
+        v.push_back(rand() % 100 + 1);
+    }
 
-    std::cout << v[0] << '\n';
+    for (int i = 0; i < v.size(); i++)
+    {
+        std::cout << v[i] << '\n';
+    }
 
     return 0;
 }
