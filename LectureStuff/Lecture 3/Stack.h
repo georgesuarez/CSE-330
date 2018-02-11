@@ -15,4 +15,4 @@ private:
     std::vector<T> stack;
 };
 
-#endif // !STACK_H
+#endif // STACK_H

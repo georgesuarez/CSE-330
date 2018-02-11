@@ -4,8 +4,9 @@
 #include <algorithm>
 #include <cassert>
 
-template <typename T> class Mvector {
-public:
+template <typename T>
+class Mvector {
+ public:
   Mvector();
   Mvector(unsigned int n);
   ~Mvector();
@@ -17,7 +18,7 @@ public:
   T operator[](unsigned int i);
   int size() const;
 
-private:
+ private:
   int vsize;
   int vcap;
   T *v;
@@ -38,14 +39,16 @@ private:
   }
 };
 
-template <typename T> Mvector<T>::Mvector() {
+template <typename T>
+Mvector<T>::Mvector() {
   vsize = 0;
   vcap = 10;
   T *NewV = new T[vcap];
   v = NewV;
 }
 
-template <typename T> Mvector<T>::Mvector(unsigned int n) {
+template <typename T>
+Mvector<T>::Mvector(unsigned int n) {
   assert(n >= 0);
 
   vsize = n;
@@ -54,9 +57,13 @@ template <typename T> Mvector<T>::Mvector(unsigned int n) {
   v = NewV;
 }
 
-template <typename T> Mvector<T>::~Mvector() { delete[] v; }
+template <typename T>
+Mvector<T>::~Mvector() {
+  delete[] v;
+}
 
-template <typename T> void Mvector<T>::push_back(T x) {
+template <typename T>
+void Mvector<T>::push_back(T x) {
   if (vsize == vcap) {
     reserve(2 * vcap + 1);
   } else {
@@ -64,18 +71,31 @@ template <typename T> void Mvector<T>::push_back(T x) {
   }
 }
 
-template <typename T> void Mvector<T>::pop_back() { vsize--; }
+template <typename T>
+void Mvector<T>::pop_back() {
+  vsize--;
+}
 
-template <typename T> void Mvector<T>::clear() {
+template <typename T>
+void Mvector<T>::clear() {
   vcap = 10;
   vsize = 0;
 }
 
-template <typename T> void Mvector<T>::insert(int i, T x) { v[i] = x; }
+template <typename T>
+void Mvector<T>::insert(int i, T x) {
+  v[i] = x;
+}
 
 // TODO: Finish me!
-template <typename T> int Mvector<T>::size() const { return vsize; }
+template <typename T>
+int Mvector<T>::size() const {
+  return vsize;
+}
 
-template <typename T> T Mvector<T>::operator[](unsigned int i) { return v[i]; }
+template <typename T>
+T Mvector<T>::operator[](unsigned int i) {
+  return v[i];
+}
 
 #endif

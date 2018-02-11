@@ -6,52 +6,45 @@
 // File: SelectionSort.cpp
 
 #include <cstdlib>
-#include <vector>
 #include <iostream>
+#include <vector>
 
 template <typename T>
-void swap(T& a, T& b)
-{
-    T temp = a;
-    a = b;
-    b = temp;
+void swap(T& a, T& b) {
+  T temp = a;
+  a = b;
+  b = temp;
 }
 
-void selSort(std::vector<int>& v)
-{
-    int n = v.size();
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (int j = i + 1; j < n; j++)
-        {
-            if (v[i] > v[j])
-            {
-                swap(v[i], v[j]);
-            }
-        }
+void selSort(std::vector<int>& v) {
+  int n = v.size();
+  for (int i = 0; i < n - 1; i++) {
+    for (int j = i + 1; j < n; j++) {
+      if (v[i] > v[j]) {
+        swap(v[i], v[j]);
+      }
     }
+  }
 }
 
-int main()
-{
-    clock_t start, finish;
-    srand(time(nullptr));
-    std::vector<int> v;
-    int n = 0;
+int main() {
+  clock_t start, finish;
+  srand(time(nullptr));
+  std::vector<int> v;
+  int n = 0;
 
-    std::cout << "Enter size of input: ";
-    std::cin >> n;
+  std::cout << "Enter size of input: ";
+  std::cin >> n;
 
-    for (int i = 0; i < n; i++)
-    {
-        v.push_back(rand());
-    }
+  for (int i = 0; i < n; i++) {
+    v.push_back(rand());
+  }
 
-    start = clock();
-    selSort(v);
-    finish = clock();
+  start = clock();
+  selSort(v);
+  finish = clock();
 
-    std::cout << "Time = " << finish - start << '\n';
+  std::cout << "Time = " << finish - start << '\n';
 
-    return 0;
+  return 0;
 }

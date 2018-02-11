@@ -24,6 +24,6 @@ int main() {
 
   // v.erase(0);
   // std::cout << v[0] << '\n';
-  
+
   return 0;
 }
