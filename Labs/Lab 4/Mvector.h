@@ -88,6 +88,13 @@ void Mvector<T>::insert(int i, T x) {
 }
 
 // TODO: Finish me!
+template <typename t>
+void mvector<t>::erase(int i) {
+  assert(i >= 0);
+
+  delete v[i];
+}
+
 template <typename T>
 int Mvector<T>::size() const {
   return vsize;
