@@ -20,7 +20,7 @@ class GVector {
  private:
   void reserve(unsigned int n) {
     T *NewV = new T[n];
-    assert(NewV != nullptr);
+    assert(NewV != NULL);
 
     for (int i = 0; i < vsize; i++) {
       NewV[i] = v[i];
@@ -28,7 +28,6 @@ class GVector {
     delete[] v;
     v = NewV;
     vcap = n;
-    delete[] NewV;
   }
 
  private:
@@ -40,7 +39,7 @@ class GVector {
 template <typename T>
 GVector<T>::GVector() {
   T *NewV = new T[vcap];
-  assert(NewV != nullptr);
+  assert(NewV != NULL);
   v = NewV;
   vcap = 2;
   vsize = 0;
@@ -50,7 +49,7 @@ template <typename T>
 GVector<T>::GVector(unsigned int n) {
   assert(n >= 0);
   T *NewV = new T[vcap];
-  assert(NewV != nullptr);
+  assert(NewV != NULL);
   vsize = n;
   vcap = vsize * 2;
   v = NewV;
@@ -84,8 +83,8 @@ void GVector<T>::clear() {
 }
 
 template <typename T>
-void GVector<T>::insert(int i, T x) {
-  assert(i >= 0 && v <= vsize);
+void GVector<T>::insert(unsigned int i, T x) {
+  assert(i >= 0 && i <= vsize);
   if (vsize == vcap) {
     reserve(2 * vcap);
   }
@@ -97,7 +96,7 @@ void GVector<T>::insert(int i, T x) {
 }
 
 template <typename t>
-void GVector<t>::erase(int i) {
+void GVector<t>::erase(unsigned int i) {
   assert(i >= 0 && i < vsize);
   for (int j = i; j < vsize; j++) {
     v[j] = v[j + 1];
@@ -116,4 +115,5 @@ T GVector<T>::operator[](unsigned int i) {
   return v[i];
 }
 
-#endif
+#endif  // GVECTOR_H
+  

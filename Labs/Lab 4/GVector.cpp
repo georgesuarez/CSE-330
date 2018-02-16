@@ -2,15 +2,15 @@
 #include <iostream>
 
 int main() {
-  srand(time(nullptr));
+  srand(time(NULL));
   int n = 0;
-  std::cout << "Enter a size n: " << '\n';
-  std::cout << "> ";
-  std::cin >> n;
+  // std::cout << "Enter a size n: " << '\n';
+  // std::cout << "> ";
+  // std::cin >> n;
 
   GVector<int> v = GVector<int>();
 
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < 10; i++) {
     v.push_back(rand() % 100 + 1);
   }
 
