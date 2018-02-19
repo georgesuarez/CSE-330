@@ -1,3 +1,10 @@
+// CSE 330 Data Structures Lab
+// Section: Monday
+// Term: Winter 2018
+// Name: George Suarez
+// Lab 4: Vectors
+// File: GVector.h
+
 #ifndef GVECTOR_H
 #define GVECTOR_H
 
