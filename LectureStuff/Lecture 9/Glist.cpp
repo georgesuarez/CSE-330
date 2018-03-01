@@ -4,7 +4,7 @@
 template <typename T>
 class Lnode
 {
-public:
+  public:
 	T data;
 	Lnode *lptr;
 	Lnode *rptr;
@@ -13,21 +13,28 @@ public:
 template <typename T>
 class Glist
 {
-public:
+  public:
 	Glist();
+	typedef Lnode<T> *Iterator;
+	Iterator front() { return first; }
+	Iterator back() { return last;  }
 	void add(T x);
+	void add(unsigned int index, T x);
 	void del(T x);
-	void deletefront();
+	void del(unsigned int index);
+	void print();
 	T getfront();
+	T getBack();
+	T operator[](unsigned int);
 
-private:
+  private:
 	Lnode<T> *first;
 	Lnode<T> *last;
 	int lsize;
 };
 
 template <typename T>
-Glist::Glist()
+Glist<T>::Glist()
 {
 	first = nullptr;
 	last = nullptr;
@@ -35,7 +42,7 @@ Glist::Glist()
 }
 
 template <typename T>
-void Glist::add(T x)
+void Glist<T>::add(T x)
 {
 	Lnode<T> *ptr = new Lnode<T>();
 	ptr->data = x;
@@ -58,11 +65,40 @@ void Glist::add(T x)
 }
 
 template <typename T>
-void Glist::deletefront()
+void Glist<T>::add(unsigned int i, T x)
 {
-	Lnode<T> *cur = first;
-	first = first->rptr;
-	delete cur;
-	last->lptr = nullptr;
-	lsize--;
+
+}
+
+
+template <typename T>
+T Glist<T>::operator[](unsigned int index)
+{
+	assert(lsize > 0);
+	Lnode<T> *ptr;
+	ptr = first;
+	for (int j = 0; j < index; j++)
+	{
+		ptr = ptr->rptr;
+	}
+	return ptr->data;
+}
+
+template <typename T>
+void Glist<T>::del(T x) 
+{
+
+}
+
+template <typename T>
+void Glist<T>::del(unsigned int index)
+{
+
+}
+
+int main()
+{
+	Glist<int> list = Glist<int>();
+	list.add(10);
+	std::cout << list[0] << '\n';
 }
