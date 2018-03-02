@@ -23,17 +23,13 @@ class Glist
 {
   public:
 	Glist();
-	typedef Lnode<T> *Iterator;
-	Iterator front() { return first; }
-	Iterator back() { return last;  }
 	void add(T x);
-	void add(unsigned int index, T x);
+	void add(int i, T x);
 	void del(T x);
-	void del(unsigned int index);
-	void print();
+	void remove(int i);
 	T getfront();
-	T getBack();
-	T operator[](unsigned int);
+	T getback();
+	T operator[](unsigned int i);
 
   private:
 	Lnode<T> *first;
@@ -73,40 +69,59 @@ void Glist<T>::add(T x)
 }
 
 template <typename T>
-void Glist<T>::add(unsigned int i, T x)
+void Glist<T>::add(int i, T x)
 {
 
 }
 
+template <typename T>
+void Glist<T>::del(T x)
+{
+
+}
 
 template <typename T>
-T Glist<T>::operator[](unsigned int index)
+void Glist<T>::remove(int i)
+{
+
+}
+
+template <typename T>
+T Glist<T>::getfront() 
+{
+	assert(lsize > 0);
+	return first->data;
+}
+
+template <typename T>
+T Glist<T>::getback()
+{
+	assert(lsize > 0);
+	return last->data;
+}
+
+template <typename T>
+T Glist<T>::operator[](unsigned int i)
 {
 	assert(lsize > 0);
 	Lnode<T> *ptr;
 	ptr = first;
-	for (int j = 0; j < index; j++)
+	for (int j = 0; j < i; j++)
 	{
 		ptr = ptr->rptr;
 	}
 	return ptr->data;
 }
 
-template <typename T>
-void Glist<T>::del(T x) 
-{
-
-}
-
-template <typename T>
-void Glist<T>::del(unsigned int index)
-{
-
-}
-
 int main()
 {
 	Glist<int> list = Glist<int>();
 	list.add(10);
-	std::cout << list[0] << '\n';
+	list.add(20);
+	list.add(30);
+	list.add(40);
+	list.add(50);
+	std::cout << "Front of the list: " << list.getfront() << std::endl;
+	std::cout << "Back of the list: " << list.getback() << std::endl;
+	
 }
