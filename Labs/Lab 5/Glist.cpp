@@ -26,7 +26,8 @@ class Glist
 	void add(T x);
 	void add(int i, T x);
 	void del(T x);
-	void remove(int i);
+	void erase(int i);
+	void print();
 	T getfront();
 	T getback();
 	T operator[](unsigned int i);
@@ -71,23 +72,111 @@ void Glist<T>::add(T x)
 template <typename T>
 void Glist<T>::add(int i, T x)
 {
+	if (i == 0 || i == lsize - 1)
+	{
+		add(x);
+	}
 
+	Lnode<T> *ptr = new Lnode<T>();
+	ptr->data = x;
+
+	Lnode<T> *iter = first;
+
+	for (int j = 0; j < i - 1; j++)
+	{
+		iter = iter->rptr;
+	}
+
+	iter->rptr->lptr = ptr;
+	ptr->rptr = iter->rptr;
+
+	iter->rptr = ptr;
+	ptr->lptr = iter;
+
+	lsize++;
 }
 
 template <typename T>
 void Glist<T>::del(T x)
 {
+	Lnode<T> *iter = first;
+	lsize--;
 
+	if (x == getfront())
+	{
+		Lnode<T> *ptr = first;
+		first = first->rptr;
+		delete ptr;
+		return;
+	}
+
+	if (x == getback())
+	{
+		Lnode<T> *ptr = last;
+		last = last->lptr;
+		delete ptr;
+		return;
+	}
+
+	for (iter = iter->rptr; iter->rptr != nullptr; iter++)
+	{
+		if (iter->data == x)
+		{
+			iter->lptr->rptr = iter->rptr;
+			iter->rptr->lptr = iter->lptr;
+			delete iter;
+			return;
+		}
+	}
 }
 
 template <typename T>
-void Glist<T>::remove(int i)
+void Glist<T>::erase(int i)
 {
+	Lnode<T> *iter = first;
+	lsize--;
 
+	if (i == 0)
+	{
+		Lnode<T> *ptr = first;
+		first = first->rptr;
+		delete ptr;
+		return;
+	}
+
+	if (i == lsize - 1)
+	{
+		Lnode<T> *ptr = last;
+		last = last->lptr;
+		delete ptr;
+		return;
+	}
+
+	for (int j = 0; j < i; j++)
+	{
+		iter = iter->rptr;
+	}
+
+	iter->lptr->rptr = iter->rptr;
+	iter->rptr->lptr = iter->lptr;
+
+	delete iter;
 }
 
 template <typename T>
-T Glist<T>::getfront() 
+void Glist<T>::print()
+{
+	Lnode<T> *iter = first;
+	while (iter->rptr != nullptr)
+	{
+		std::cout << iter->data << ' ';
+		iter = iter->rptr;
+	}
+	std::cout << std::endl;
+}
+
+template <typename T>
+T Glist<T>::getfront()
 {
 	assert(lsize > 0);
 	return first->data;
@@ -115,13 +204,12 @@ T Glist<T>::operator[](unsigned int i)
 
 int main()
 {
+	srand(time(nullptr));
 	Glist<int> list = Glist<int>();
-	list.add(10);
-	list.add(20);
-	list.add(30);
-	list.add(40);
-	list.add(50);
-	std::cout << "Front of the list: " << list.getfront() << std::endl;
-	std::cout << "Back of the list: " << list.getback() << std::endl;
-	
+	for (int i = 0; i < 10; i++)
+	{
+		list.add(rand() % 100 + 1);
+	}
+
+	list.print();
 }
