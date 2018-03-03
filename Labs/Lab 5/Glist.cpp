@@ -167,7 +167,7 @@ template <typename T>
 void Glist<T>::print()
 {
 	Lnode<T> *iter = first;
-	while (iter->rptr != nullptr)
+	while (iter != nullptr)
 	{
 		std::cout << iter->data << ' ';
 		iter = iter->rptr;
@@ -206,10 +206,33 @@ int main()
 {
 	srand(time(nullptr));
 	Glist<int> list = Glist<int>();
+
 	for (int i = 0; i < 10; i++)
 	{
 		list.add(rand() % 100 + 1);
 	}
 
+	std::cout << "Glist contains: ";
+	list.print();
+
+	std::cout << "Front of the list: " << list.getfront() << std::endl;
+	std::cout << "Back of the list: " << list.getback() << std::endl;
+
+	std::cout << "Inserting 20 at position 1." << std::endl;
+	list.add(1, 20);
+
+	std::cout << "Glist contains: ";
+	list.print();
+
+	std::cout << "Deleting 20 from the list." << std::endl;
+	list.del(20);
+
+	std::cout << "Glist contains: ";
+	list.print();
+
+	std::cout << "Deleting position 1 from the list." << std::endl;
+	list.erase(1);
+
+	std::cout << "Glist contains: ";
 	list.print();
 }
