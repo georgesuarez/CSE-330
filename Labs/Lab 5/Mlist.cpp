@@ -3,7 +3,7 @@
 // Section: Monday
 // Term: Winter 2018
 // Lab 5: Iterators and Lists
-// File: Glist.cpp
+// File: Mlist.cpp
 
 #include <iostream>
 #include <ctime>
@@ -19,12 +19,12 @@ class Lnode
 };
 
 template <typename T>
-class Glist
+class Mlist
 {
   public:
-	Glist();
+	Mlist();
 	void add(T x);
-	void add(int i, T x);
+	void insert(int i, T x);
 	void del(T x);
 	void erase(int i);
 	void print();
@@ -39,7 +39,7 @@ class Glist
 };
 
 template <typename T>
-Glist<T>::Glist()
+Mlist<T>::Mlist()
 {
 	first = nullptr;
 	last = nullptr;
@@ -47,7 +47,7 @@ Glist<T>::Glist()
 }
 
 template <typename T>
-void Glist<T>::add(T x)
+void Mlist<T>::add(T x)
 {
 	Lnode<T> *ptr = new Lnode<T>();
 	ptr->data = x;
@@ -69,16 +69,29 @@ void Glist<T>::add(T x)
 	lsize++;
 }
 
-template <typename T>
-void Glist<T>::add(int i, T x)
-{
-	if (i == 0 || i == lsize - 1)
-	{
-		add(x);
-	}
 
+template <typename T>
+void Mlist<T>::insert(int i, T x)
+{
 	Lnode<T> *ptr = new Lnode<T>();
 	ptr->data = x;
+
+	if (i == 0)
+	{
+		ptr->lptr = nullptr;
+		ptr->rptr = first;
+		first = ptr;
+		lsize++;
+		return;
+	}
+	else if (i == lsize - 1)
+	{
+		ptr->lptr = last;
+		ptr->rptr = nullptr;
+		last->rptr = ptr;
+		lsize++;
+		return;
+	}
 
 	Lnode<T> *iter = first;
 
@@ -97,16 +110,14 @@ void Glist<T>::add(int i, T x)
 }
 
 template <typename T>
-void Glist<T>::del(T x)
+void Mlist<T>::del(T x)
 {
-	Lnode<T> *iter = first;
-	lsize--;
-
 	if (x == getfront())
 	{
 		Lnode<T> *ptr = first;
 		first = first->rptr;
 		delete ptr;
+		lsize--;
 		return;
 	}
 
@@ -115,8 +126,11 @@ void Glist<T>::del(T x)
 		Lnode<T> *ptr = last;
 		last = last->lptr;
 		delete ptr;
+		lsize--;
 		return;
 	}
+
+	Lnode<T> *iter = first;
 
 	for (iter = iter->rptr; iter->rptr != nullptr; iter++)
 	{
@@ -125,13 +139,14 @@ void Glist<T>::del(T x)
 			iter->lptr->rptr = iter->rptr;
 			iter->rptr->lptr = iter->lptr;
 			delete iter;
+			lsize--;
 			return;
 		}
 	}
 }
 
 template <typename T>
-void Glist<T>::erase(int i)
+void Mlist<T>::erase(int i)
 {
 	Lnode<T> *iter = first;
 	lsize--;
@@ -164,7 +179,7 @@ void Glist<T>::erase(int i)
 }
 
 template <typename T>
-void Glist<T>::print()
+void Mlist<T>::print()
 {
 	Lnode<T> *iter = first;
 	while (iter != nullptr)
@@ -176,21 +191,21 @@ void Glist<T>::print()
 }
 
 template <typename T>
-T Glist<T>::getfront()
+T Mlist<T>::getfront()
 {
 	assert(lsize > 0);
 	return first->data;
 }
 
 template <typename T>
-T Glist<T>::getback()
+T Mlist<T>::getback()
 {
 	assert(lsize > 0);
 	return last->data;
 }
 
 template <typename T>
-T Glist<T>::operator[](unsigned int i)
+T Mlist<T>::operator[](unsigned int i)
 {
 	assert(lsize > 0);
 	Lnode<T> *ptr;
@@ -205,34 +220,36 @@ T Glist<T>::operator[](unsigned int i)
 int main()
 {
 	srand(time(nullptr));
-	Glist<int> list = Glist<int>();
+	Mlist<int> list = Mlist<int>();
 
 	for (int i = 0; i < 10; i++)
 	{
 		list.add(rand() % 100 + 1);
 	}
 
-	std::cout << "Glist contains: ";
+	std::cout << "Mlist contains: ";
 	list.print();
 
 	std::cout << "Front of the list: " << list.getfront() << std::endl;
 	std::cout << "Back of the list: " << list.getback() << std::endl;
 
-	std::cout << "Inserting 20 at position 1." << std::endl;
-	list.add(1, 20);
+	std::cout << "Inserting 20 at position 9." << std::endl;
+	list.insert(9, 20);
 
-	std::cout << "Glist contains: ";
+	std::cout << "Mlist contains: ";
 	list.print();
 
 	std::cout << "Deleting 20 from the list." << std::endl;
 	list.del(20);
 
-	std::cout << "Glist contains: ";
+	std::cout << "Back of the list: " << list.getback() << std::endl;
+
+	std::cout << "Mlist contains: ";
 	list.print();
 
 	std::cout << "Deleting position 1 from the list." << std::endl;
 	list.erase(1);
 
-	std::cout << "Glist contains: ";
+	std::cout << "Mlist contains: ";
 	list.print();
 }
