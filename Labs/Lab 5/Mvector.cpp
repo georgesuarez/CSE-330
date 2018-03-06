@@ -3,7 +3,7 @@
 // Section: Monday
 // Term: Winter 2018
 // Lab 5: Iterators and Lists
-// File: Gvector.cpp
+// File: Mvector.cpp
 
 #include <cassert>
 #include <ctime>
@@ -13,7 +13,7 @@ template <typename T>
 class Mvector
 {
   public:
-    typedef T *Iterator;
+    typedef T *iterator;
     Mvector();
     Mvector(unsigned int n);
     ~Mvector();
@@ -23,10 +23,11 @@ class Mvector
     void insert(unsigned int i, T x);
     void erase(unsigned int i);
     T operator[](unsigned int i);
-    Iterator begin() { return v; }
-    Iterator end() { return v + vsize; }
-    void insert(Iterator ix, T x);
-    void erase(Iterator ix);
+    void operator--(int);
+    iterator begin() { return v; }
+    iterator end() { return v + vsize; }
+    void insert(iterator ix, T x);
+    void erase(iterator ix);
     int size() const;
 
   private:
@@ -84,6 +85,12 @@ T Mvector<T>::operator[](unsigned int i)
 }
 
 template <typename T>
+void Mvector<T>::operator--(int unused)
+{
+    this->pop_back();
+}
+
+template <typename T>
 void Mvector<T>::push_back(T x)
 {
     if (vsize == vcap)
@@ -128,14 +135,14 @@ void Mvector<T>::insert(unsigned int i, T x)
 }
 
 template <typename T>
-void Mvector<T>::insert(Iterator ix, T x)
+void Mvector<T>::insert(iterator ix, T x)
 {
     if (vsize == vcap - 1)
     {
         reserve(2 * vcap);
     }
 
-    for (Iterator jx = v + vsize; jx != ix; jx--)
+    for (iterator jx = v + vsize; jx != ix; jx--)
     {
         *jx = *(--jx);
     }
@@ -155,9 +162,9 @@ void Mvector<T>::erase(unsigned int i)
 }
 
 template <typename T>
-void Mvector<T>::erase(Iterator ix)
+void Mvector<T>::erase(iterator ix)
 {
-    for (Iterator jx = ix; jx != --(v + vsize); jx++)
+    for (iterator jx = ix; jx != --(v + vsize); jx++)
     {
         *jx = *(++jx);
     }
@@ -172,18 +179,21 @@ int Mvector<T>::size() const
 
 int main()
 {
+    srand(time(0));
     Mvector<int> v = Mvector<int>();
-    v.push_back(10);
-    v.push_back(20);
-    v.push_back(30);
-    v.push_back(40);
-    v.push_back(50);
-    Mvector<int>::Iterator ix = v.begin();
+    for (int i = 0; i < 10; i++)
+    {
+        v.push_back(rand() % 100 + 1);
+    }
+
+    Mvector<int>::iterator ix = v.begin();
 
     v.erase(ix);
 
     for (int i = 0; i < v.size(); i++)
     {
-        std::cout << v[i] << '\n';
+        std::cout << v[i] << ' ';
     }
+
+    std::cout << std::endl;
 }
