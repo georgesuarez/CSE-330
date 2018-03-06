@@ -144,7 +144,7 @@ void Mvector<T>::insert(iterator ix, T x)
 
     for (iterator jx = v + vsize; jx != ix; jx--)
     {
-        *jx = *(--jx);
+        *jx = *(jx - 1);
     }
     *ix = x;
     vsize++;
@@ -164,9 +164,9 @@ void Mvector<T>::erase(unsigned int i)
 template <typename T>
 void Mvector<T>::erase(iterator ix)
 {
-    for (iterator jx = ix; jx != --(v + vsize); jx++)
+    for (iterator jx = ix; jx != v + vsize; jx++)
     {
-        *jx = *(++jx);
+        *jx = *(jx + 1);
     }
     vsize--;
 }
@@ -188,8 +188,32 @@ int main()
 
     Mvector<int>::iterator ix = v.begin();
 
+    std::cout << "Mvector contains: ";
+    for (int i = 0; i < v.size(); i++)
+    {
+        std::cout << v[i] << ' ';
+    }
+    std::cout << std::endl;
+
+    std::cout << "Erasing " << v[0] << " from the vector" << std::endl;
     v.erase(ix);
 
+    ix = v.end();
+
+    std::cout << "Erasing " << v[v.size() - 1] << " from the vector" << std::endl;
+    v.erase(ix);
+
+    ix = v.begin();
+
+    std::cout << "Inserting 20 at the front of the vector" << std::endl;
+    v.insert(ix, 20);
+
+    ix = v.end();
+
+    std::cout << "Inserting 10 at the end of the vector" << std::endl;
+    v.insert(ix, 10);
+
+    std::cout << "Mvector contains: ";
     for (int i = 0; i < v.size(); i++)
     {
         std::cout << v[i] << ' ';
