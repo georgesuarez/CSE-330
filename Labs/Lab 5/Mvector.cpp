@@ -54,10 +54,10 @@ class Mvector
 template <typename T>
 Mvector<T>::Mvector()
 {
-    T *NewV = new T[vcap];   // Creates an array of type T w/ 2 elements
-    assert(NewV != nullptr); // Checks if a NewV is created
     vcap = 2;
     vsize = 0;
+    T *NewV = new T[vcap];   // Creates an array of type T w/ 2 elements
+    assert(NewV != nullptr); // Checks if a NewV is created
     v = NewV;
 }
 
