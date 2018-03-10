@@ -1,3 +1,10 @@
+// CSE 330 Data Structures Lab
+// Name: George Suarez
+// Term: Winter 2018
+// Section: Monday
+// Lab 6: Trees
+// File: Mlist.h
+
 #pragma once
 
 #ifndef MLIST_H

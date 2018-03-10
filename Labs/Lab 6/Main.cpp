@@ -1,20 +1,36 @@
+// CSE 330 Data Structures Lab
+// Name: George Suarez
+// Term: Winter 2018
+// Section: Monday
+// Lab 6: Trees
+// File: Main.cpp
+
 #include <iostream>
 #include <ctime>
 #include "Mlist.h"
+#include "Mtree.h"
 
 int main()
 {
     srand(time(nullptr));
-    Mlist<int> list = Mlist<int>();
+    Mtree<int> tree = Mtree<int>();
 
     for (int i = 0; i < 10; i++)
     {
-        list.add(rand() % 100 + 1);
+        tree.add(rand() % 100 + 1);
     }
 
-    list.print();
+    tree.add(0);
 
-    std::cout << "Front of the list: " << list.getfront() << std::endl;
-    std::cout << "Back of the list: " << list.getback() << std::endl;
-    std::cout << "Using the [] operator to get an element from a random position in the list: " << list[rand() % 10] << std::endl;
+    tree.printTree();
+    
+    if (tree.find(0))
+    {
+        std::cout << "Element 0 has been found!" << std::endl;
+    }
+    else
+    {
+        std::cout << "Element 0 has not been found!" << std::endl;
+    }
+
 }
