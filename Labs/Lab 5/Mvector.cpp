@@ -121,7 +121,7 @@ void Mvector<T>::clear()
 template <typename T>
 void Mvector<T>::insert(unsigned int i, T x)
 {
-    assert(i > 0 && i <= vsize);
+    assert(i >= 0 && i <= vsize);
     if (vsize == vcap)
     {
         reserve(2 * vcap);
