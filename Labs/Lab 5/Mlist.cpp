@@ -276,13 +276,11 @@ int main()
 	std::cout << "Deleting 20 from the list." << std::endl;
 	list.del(20);
 
-	std::cout << "Back of the list: " << list.getback() << std::endl;
-
 	std::cout << "Mlist contains: ";
 	list.print();
 
-	std::cout << "Deleting position 1 from the list." << std::endl;
-	list.erase(1);
+	std::cout << "Deleting position 0 from the list." << std::endl;
+	list.erase(0);
 
 	std::cout << "Mlist contains: ";
 	list.print();
