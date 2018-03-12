@@ -13,209 +13,243 @@ template <typename T>
 class Lnode
 {
   public:
-	T data;
-	Lnode *lptr;
-	Lnode *rptr;
+    T data;
+    Lnode *lptr;
+    Lnode *rptr;
 };
 
 template <typename T>
 class Mlist
 {
   public:
-	Mlist();
-	void add(T x);
-	void insert(int i, T x);
-	void del(T x);
-	void erase(int i);
-	void print();
-	T getfront();
-	T getback();
-	T operator[](unsigned int i);
+    Mlist();
+    void add(T x);
+    void insert(int i, T x);
+    void del(T x);
+    void erase(int i);
+    void print() const;
+    T getfront();
+    T getback();
+    T operator[](unsigned int i);
 
   private:
-	Lnode<T> *first;
-	Lnode<T> *last;
-	int lsize;
+    Lnode<T> *first;
+    Lnode<T> *last;
+    int lsize;
 };
 
 template <typename T>
-Mlist<T>::Mlist()
+Mlist<T>::Mlist() : first(nullptr), last(nullptr), lsize(0)
 {
-	first = nullptr;
-	last = nullptr;
-	lsize = 0;
 }
 
 template <typename T>
 void Mlist<T>::add(T x)
 {
-	Lnode<T> *ptr = new Lnode<T>();
-	ptr->data = x;
+    Lnode<T> *ptr = new Lnode<T>();
+    ptr->data = x;
 
-	if (lsize == 0)
-	{
-		ptr->lptr = nullptr;
-		ptr->rptr = nullptr;
-		first = ptr;
-		last = ptr;
-	}
-	else
-	{
-		ptr->lptr = last;
-		ptr->rptr = nullptr;
-		last->rptr = ptr;
-		last = ptr;
-	}
-	lsize++;
+    if (lsize == 0) // List is empty
+    {
+        ptr->lptr = nullptr;
+        first = ptr;
+        last = ptr;
+        lsize++;
+        return;
+    }
+    else // Add to the back
+    {
+        ptr->rptr = nullptr;
+        ptr->lptr = last;
+        last->rptr = ptr;
+        last = ptr;
+        lsize++;
+        return;
+    }
 }
-
 
 template <typename T>
 void Mlist<T>::insert(int i, T x)
 {
-	Lnode<T> *ptr = new Lnode<T>();
-	ptr->data = x;
+    if (i == 0) // Inserting to the front of the list
+    {
+        Lnode<T> *ptr = new Lnode<T>();
+        ptr->data = x;
+        ptr->lptr = nullptr;
+        ptr->rptr = first;
+        first->lptr = ptr;
+        first = ptr;
+        lsize++;
+        return;
+    }
+    else if (i == lsize - 1) // Inserting to the back of the list
+    {
+        Lnode<T> *ptr = new Lnode<T>();
+        ptr->data = x;
+        ptr->rptr = nullptr;
+        ptr->lptr = last;
+        last->rptr = ptr;
+        last = ptr;
+        lsize++;
+        return;
+    }
 
-	if (i == 0)
-	{
-		ptr->lptr = nullptr;
-		ptr->rptr = first;
-		first = ptr;
-		lsize++;
-		return;
-	}
-	else if (i == lsize - 1)
-	{
-		ptr->lptr = last;
-		ptr->rptr = nullptr;
-		last->rptr = ptr;
-		lsize++;
-		return;
-	}
+    Lnode<T> *node = new Lnode<T>();
+    node->data = x;
+    Lnode<T> *iter = first;
 
-	Lnode<T> *iter = first;
+    for (int j = 0; j < i; j++)
+    {
+        iter = iter->rptr;
+    }
+    
+    iter->rptr->lptr = node;
+    node->rptr = iter->rptr;
 
-	for (int j = 0; j < i - 1; j++)
-	{
-		iter = iter->rptr;
-	}
+    iter->rptr = node;
+    node->lptr = iter;
 
-	iter->rptr->lptr = ptr;
-	ptr->rptr = iter->rptr;
-
-	iter->rptr = ptr;
-	ptr->lptr = iter;
-
-	lsize++;
+    lsize++;
 }
 
 template <typename T>
 void Mlist<T>::del(T x)
 {
-	if (x == getfront())
-	{
-		Lnode<T> *ptr = first;
-		first = first->rptr;
-		delete ptr;
-		lsize--;
-		return;
-	}
+    if (lsize == 0)
+    {
+        return;
+    }
 
-	if (x == getback())
-	{
-		Lnode<T> *ptr = last;
-		last = last->lptr;
-		delete ptr;
-		lsize--;
-		return;
-	}
+    Lnode<T> *iter = first;
+    while (iter != nullptr)
+    {
+        if (iter->data == x)
+        {
+            Lnode<T> *next = iter->rptr;
+            Lnode<T> *prev = iter->lptr;
 
-	Lnode<T> *iter = first;
-
-	for (iter = iter->rptr; iter->rptr != nullptr; iter++)
-	{
-		if (iter->data == x)
-		{
-			iter->lptr->rptr = iter->rptr;
-			iter->rptr->lptr = iter->lptr;
-			delete iter;
-			lsize--;
-			return;
-		}
-	}
+            if (prev == nullptr && next == nullptr) // Deleting one element
+            {
+                delete first;
+                first = nullptr;
+                last = nullptr;
+                lsize--;
+                return;
+            }
+            else if(next == nullptr) // Delete last element
+            {
+                last = prev;
+                last->rptr = nullptr;
+                delete iter;
+                lsize--;
+                return;
+            }
+            else if(prev == nullptr) // Delete first element
+            {
+                first = iter->rptr;
+                first->lptr = nullptr;
+                delete iter;
+                lsize--;
+                return;
+            }
+            else
+            {
+                prev->rptr = iter->rptr;
+                next->lptr = iter->lptr;
+                delete iter;
+                lsize--;
+            }
+        }
+        else
+        {
+            iter = iter->rptr;
+        }
+    }
 }
 
 template <typename T>
 void Mlist<T>::erase(int i)
 {
-	Lnode<T> *iter = first;
-	lsize--;
+    Lnode<T> *iter = first;
+    for (int j = 0; j < i; j++)
+    {
+        iter = iter->rptr;
+    }
 
-	if (i == 0)
-	{
-		Lnode<T> *ptr = first;
-		first = first->rptr;
-		delete ptr;
-		return;
-	}
+    Lnode<T> *next = iter->rptr;
+    Lnode<T> *prev = iter->lptr;
 
-	if (i == lsize - 1)
-	{
-		Lnode<T> *ptr = last;
-		last = last->lptr;
-		delete ptr;
-		return;
-	}
-
-	for (int j = 0; j < i; j++)
-	{
-		iter = iter->rptr;
-	}
-
-	iter->lptr->rptr = iter->rptr;
-	iter->rptr->lptr = iter->lptr;
-
-	delete iter;
+    if (prev == nullptr && next == nullptr) // Erasing just one element
+    {
+        delete first;
+        first = nullptr;
+        last = nullptr;
+        lsize--;
+        return;
+    }
+    else if (next == nullptr) // Erasing the last element
+    {
+        last = prev;
+        last->rptr = nullptr;
+        delete iter;
+        lsize--;
+        return;
+    }
+    else if (prev == nullptr)
+    {
+        first = iter->rptr;
+        first->lptr = nullptr;
+        delete iter;
+        lsize--;
+        return;
+    }
+    else
+    {
+        prev->rptr = iter->rptr;
+        next->lptr = iter->lptr;
+        delete iter;
+        lsize--;
+    }
 }
 
 template <typename T>
-void Mlist<T>::print()
+void Mlist<T>::print() const
 {
-	Lnode<T> *iter = first;
-	while (iter != nullptr)
-	{
-		std::cout << iter->data << ' ';
-		iter = iter->rptr;
-	}
-	std::cout << std::endl;
+    Lnode<T> *iter = first;
+    while (iter != nullptr)
+    {
+        std::cout << iter->data << " ";
+        iter = iter->rptr;
+    }
+    std::cout << std::endl;
 }
 
 template <typename T>
 T Mlist<T>::getfront()
 {
-	assert(lsize > 0);
-	return first->data;
+    assert(lsize > 0);
+    return first->data;
 }
 
 template <typename T>
 T Mlist<T>::getback()
 {
-	assert(lsize > 0);
-	return last->data;
+    assert(lsize > 0);
+    return last->data;
 }
 
 template <typename T>
 T Mlist<T>::operator[](unsigned int i)
 {
 	assert(lsize > 0);
-	Lnode<T> *ptr;
-	ptr = first;
+	Lnode<T> *ptr = first;
 	for (int j = 0; j < i; j++)
 	{
 		ptr = ptr->rptr;
 	}
 	return ptr->data;
 }
+
 
 int main()
 {

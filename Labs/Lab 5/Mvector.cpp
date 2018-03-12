@@ -137,7 +137,7 @@ void Mvector<T>::insert(unsigned int i, T x)
 template <typename T>
 void Mvector<T>::insert(iterator ix, T x)
 {
-    if (vsize == vcap - 1)
+    if (vsize == vcap)
     {
         reserve(2 * vcap);
     }
