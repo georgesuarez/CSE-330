@@ -51,8 +51,6 @@ void Mtree<T>::add(T x)
         ptr->rptr = nullptr;
         ptr->data = x;
         root = ptr;
-        tsize++;
-        return;
     }
     else
     {
@@ -96,14 +94,7 @@ void Mtree<T>::add(Tnode<T> *ptr, T x)
 template <typename T>
 bool Mtree<T>::find(T x)
 {
-    if (root->data == x) // Found in the root
-    {
-        return true;
-    }
-    else
-    {
-        find(root, x);
-    }
+    return find(root, x);
 }
 
 template <typename T>
@@ -117,7 +108,7 @@ bool Mtree<T>::find(Tnode<T> *ptr, T x)
     {
         return find(ptr->lptr, x);
     }
-    else if (x > ptr->data)
+    else if (ptr->data < x)
     {
         return find(ptr->rptr, x);
     }
