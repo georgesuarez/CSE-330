@@ -35,6 +35,7 @@ class Mlist
     T getfront();
     T getback();
     T operator[](unsigned int i);
+    int size() const;
 
   private:
     Lnode<T> *first;
@@ -252,6 +253,12 @@ T Mlist<T>::operator[](unsigned int i)
 		ptr = ptr->rptr;
 	}
 	return ptr->data;
+}
+
+template <typename T>
+int Mlist<T>::size() const
+{
+    return lsize;
 }
 
 #endif // MLIST_H
