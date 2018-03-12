@@ -10,6 +10,9 @@
 #ifndef MTREE_H
 #define MTREE_H
 
+#include <iostream>
+#include <vector>
+
 template <typename T>
 class Tnode
 {
@@ -26,13 +29,16 @@ class Mtree
     Mtree();
     void add(T x);
     bool find(T x);
+    std::vector<T> inorder();
     void printTree() const;
 
   private:
     Tnode<T> *root;
     int tsize;
+    std::vector<T> v;
     void add(Tnode<T> *ptr, T x);
     bool find(Tnode<T> *ptr, T x);
+    void inorder(Tnode<T> *ptr);
     void printTree(Tnode<T> *ptr) const;
 };
 
@@ -115,6 +121,32 @@ bool Mtree<T>::find(Tnode<T> *ptr, T x)
     else
     {
         return true;
+    }
+}
+
+template <typename T>
+std::vector<T> Mtree<T>::inorder()
+{
+    v.clear();
+    if (tsize == 0)
+    {
+        return v;
+    }
+    else
+    {
+        inorder(root);
+        return v;
+    }
+}
+
+template <typename T>
+void Mtree<T>::inorder(Tnode<T> *ptr)
+{
+    if (ptr != nullptr)
+    {
+        inorder(ptr->lptr);
+        v.push_back(ptr->data);
+        inorder(ptr->rptr);
     }
 }
 
