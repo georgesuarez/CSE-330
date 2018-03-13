@@ -1,3 +1,6 @@
+#ifndef MTREE_H
+#define MTREE_H
+
 #include <vector>
 
 template <typename T>
@@ -17,9 +20,12 @@ class Mtree
 	void add(T x);
 	std::vector<T> inorder();
 	bool find(T x);
+	void printTree() const;
 
   private:
 	void add(Tnode<T> *ptr, T x);
+	bool find(Tnode<T> *ptr, T x);
+	void printTree(Tnode<T> *ptr) const;
 	Tnode<T> *root;
 	std::vector<T> v;
 	int tsize;
@@ -40,8 +46,6 @@ void Mtree<T>::add(T x)
 		ptr->rptr = nullptr;
 		ptr->data = x;
 		root = ptr;
-		tsize++;
-		return;
 	}
 	else
 	{
@@ -67,7 +71,7 @@ void Mtree<T>::add(Tnode<T> *ptr, T x)
 		Tnode<T> *nptr = new Tnode<T>();
 		ptr->rptr = nptr;
 		nptr->data = x;
-		notr->lptr = nullptr;
+		nptr->lptr = nullptr;
 		nptr->rptr = nullptr;
 		return;
 	}
@@ -84,4 +88,60 @@ void Mtree<T>::add(Tnode<T> *ptr, T x)
 template <typename T>
 bool Mtree<T>::find(T x)
 {
+	if (root->data == x) // Found in the root
+	{
+		return true;
+	}
+	else
+	{
+		find(root, x);
+	}
 }
+
+template <typename T>
+bool Mtree<T>::find(Tnode<T> *ptr, T x)
+{
+	if (ptr == nullptr)
+	{
+		return false;
+	}
+	else if (x < ptr->data)
+	{
+		return find(ptr->lptr, x);
+	}
+	else if (x > ptr->data)
+	{
+		return find(ptr->rptr, x);
+	}
+	else
+	{
+		return true;
+	}
+}
+
+template <typename T>
+void Mtree<T>::printTree() const
+{
+    if (tsize == 0)
+    {
+        return;
+    }
+    else
+    {
+        printTree(root);
+    }
+    std::cout << std::endl;
+}
+
+template <typename T>
+void Mtree<T>::printTree(Tnode<T> *ptr) const
+{
+    if (ptr != nullptr)
+    {
+        printTree(ptr->lptr);
+        std::cout << ptr->data << " ";
+        printTree(ptr->rptr);
+    }
+}
+
+#endif // MTREE_H
