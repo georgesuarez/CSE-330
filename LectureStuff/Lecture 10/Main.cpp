@@ -5,12 +5,20 @@
 
 int main()
 {
-    srand(time(nullptr));
-    Mtree<int> my_tree = Mtree<int>();
-    for (int i = 0; i < 10; i++)
-    {
-        my_tree.add(rand() % 100 + 1);
-    }
+    Mtree<int> tree = Mtree<int>();
 
-    my_tree.printTree();
+    tree.add(22);
+    tree.add(3);
+    tree.add(5);
+    tree.add(6);
+    tree.add(1);
+    tree.add(10);
+    tree.add(11);
+    tree.add(20);
+    tree.add(16);
+    tree.add(17);
+
+    std::vector<int> v = tree.inorder();
+
+    tree.printTree();
 }
