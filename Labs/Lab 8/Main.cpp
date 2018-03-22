@@ -15,7 +15,7 @@ int main()
     Mtree<int> tree = Mtree<int>();
 
     // Step 2: Add random integers to the Mtree
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < 1000; i++)
     {
         tree.add(rand());
     }

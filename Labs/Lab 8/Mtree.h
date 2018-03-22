@@ -32,9 +32,9 @@ class Mtree
   private:
 	void add(Tnode<T> *ptr, T x);
 	bool find(Tnode<T> *ptr, T x);
-    void inorder(Tnode<T> *ptr);
-    void printTree(Tnode<T> *ptr) const;
-    Tnode<T> *root;
+	void inorder(Tnode<T> *ptr);
+	void printTree(Tnode<T> *ptr) const;
+	Tnode<T> *root;
 	std::vector<T> v;
 	int tsize;
 };
@@ -130,52 +130,52 @@ bool Mtree<T>::find(Tnode<T> *ptr, T x)
 template <typename T>
 std::vector<T> Mtree<T>::inorder()
 {
-    v.clear();
-    if (tsize == 0)
-    {
-        return v;
-    }
-    else
-    {
-        inorder(root);
-        return v;
-    }
+	v.clear();
+	if (tsize == 0)
+	{
+		return v;
+	}
+	else
+	{
+		inorder(root);
+		return v;
+	}
 }
 
 template <typename T>
 void Mtree<T>::inorder(Tnode<T> *ptr)
 {
-    if (ptr != nullptr)
-    {
-        inorder(ptr->lptr);
-        v.push_back(ptr->data);
-        inorder(ptr->rptr);
-    }
+	if (ptr != nullptr)
+	{
+		inorder(ptr->lptr);
+		v.push_back(ptr->data);
+		inorder(ptr->rptr);
+	}
 }
 
 template <typename T>
 void Mtree<T>::printTree() const
 {
-    if (tsize == 0)
-    {
-        return;
-    }
-    else
-    {
-        printTree(root);
-    }
-    std::cout << std::endl;
+	if (tsize == 0)
+	{
+		return;
+	}
+	else
+	{
+		printTree(root);
+	}
+	std::cout << std::endl;
 }
 
 template <typename T>
 void Mtree<T>::printTree(Tnode<T> *ptr) const
 {
-    if (ptr != nullptr)
-    {
-        printTree(ptr->lptr);
-        std::cout << ptr->data << " ";
-        printTree(ptr->rptr);
-    }
+	if (ptr != nullptr)
+	{
+		printTree(ptr->lptr);
+		std::cout << ptr->data << " ";
+		printTree(ptr->rptr);
+	}
 }
 
 #endif // MTREE_H
