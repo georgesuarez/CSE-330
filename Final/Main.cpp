@@ -5,7 +5,8 @@
 #include "Mtree.h"
 #include "Mvector.h"
 
-int main() {
+int main()
+{
   Mvector<int> v1 = Mvector<int>();
   Mvector<int> v2 = Mvector<int>();
 
@@ -17,9 +18,12 @@ int main() {
   v2.push_back(20);
   v2.push_back(30);
 
-  if (v1 == v2) {
+  if (v1 == v2)
+  {
     std::cout << "Equal" << std::endl;
-  } else {
+  }
+  else
+  {
     std::cout << "Not Equal" << std::endl;
   }
 }

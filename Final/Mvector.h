@@ -8,9 +8,10 @@
 #include <iostream>
 
 template <typename T>
-class Mvector {
- public:
-  typedef T* iterator;
+class Mvector
+{
+public:
+  typedef T *iterator;
   Mvector();
   Mvector(unsigned int n);
   ~Mvector();
@@ -30,11 +31,13 @@ class Mvector {
   void erase(iterator ix);
   int size() const;
 
- private:
-  void reserve(unsigned int n) {
-    T* NewV = new T[n];
+private:
+  void reserve(unsigned int n)
+  {
+    T *NewV = new T[n];
     assert(NewV != nullptr);
-    for (int i = 0; i < vsize; i++) {
+    for (int i = 0; i < vsize; i++)
+    {
       NewV[i] = std::move(v[i]);
     }
 
@@ -43,50 +46,58 @@ class Mvector {
     delete[] NewV;
   }
 
- private:
-  int vsize;  // number of elements in use in the array v
-  int vcap;   // actual size of the array v
-  T* v;
+private:
+  int vsize; // number of elements in use in the array v
+  int vcap;  // actual size of the array v
+  T *v;
 };
 
 template <typename T>
-Mvector<T>::Mvector() {
+Mvector<T>::Mvector()
+{
   vcap = 2;
   vsize = 0;
-  T* NewV = new T[vcap];    // Creates an array of type T w/ 2 elements
-  assert(NewV != nullptr);  // Checks if a NewV is created
+  T *NewV = new T[vcap];   // Creates an array of type T w/ 2 elements
+  assert(NewV != nullptr); // Checks if a NewV is created
   v = NewV;
 }
 
 template <typename T>
-Mvector<T>::Mvector(unsigned int n) {
+Mvector<T>::Mvector(unsigned int n)
+{
   vsize = n;
   vcap = vsize * 2;
-  T* NewV = new T[vcap];
+  T *NewV = new T[vcap];
   assert(NewV != nullptr);
   v = NewV;
 }
 
 template <typename T>
-Mvector<T>::~Mvector() {
+Mvector<T>::~Mvector()
+{
   delete[] v;
 }
 
 template <typename T>
-T Mvector<T>::operator[](unsigned int i) {
+T Mvector<T>::operator[](unsigned int i)
+{
   assert(i < vsize && vsize > 0);
   return v[i];
 }
 
 template <typename T>
-void Mvector<T>::operator--(int unused) {
+void Mvector<T>::operator--(int unused)
+{
   this->pop_back();
 }
 
 template <typename T>
-bool Mvector<T>::operator==(Mvector<T> rhs) {
-  if (vsize == rhs.size()) {
-    for (int i = 0; i < vsize; i++) {
+bool Mvector<T>::operator==(Mvector<T> rhs)
+{
+  if (vsize == rhs.size())
+  {
+    for (int i = 0; i < vsize; i++)
+    {
       if (v[i] != rhs[i])
         return false;
     }
@@ -96,34 +107,43 @@ bool Mvector<T>::operator==(Mvector<T> rhs) {
 }
 
 template <typename T>
-void Mvector<T>::push_back(T x) {
-  if (vsize == vcap) {
+void Mvector<T>::push_back(T x)
+{
+  if (vsize == vcap)
+  {
     reserve(2 * vcap);
     v[vsize++] = x;
-  } else {
+  }
+  else
+  {
     v[vsize++] = x;
   }
 }
 
 template <typename T>
-void Mvector<T>::pop_back() {
+void Mvector<T>::pop_back()
+{
   assert(vsize > 0);
   vsize--;
 }
 
 template <typename T>
-void Mvector<T>::clear() {
+void Mvector<T>::clear()
+{
   vcap = 2;
   vsize = 0;
 }
 
 template <typename T>
-void Mvector<T>::insert(unsigned int i, T x) {
+void Mvector<T>::insert(unsigned int i, T x)
+{
   assert(i >= 0 && i <= vsize);
-  if (vsize == vcap) {
+  if (vsize == vcap)
+  {
     reserve(2 * vcap);
   }
-  for (int j = vsize; j > i + 1; j--) {
+  for (int j = vsize; j > i + 1; j--)
+  {
     v[j] = v[j - 1];
   }
   v[i] = x;
@@ -131,12 +151,15 @@ void Mvector<T>::insert(unsigned int i, T x) {
 }
 
 template <typename T>
-void Mvector<T>::insert(iterator ix, T x) {
-  if (vsize == vcap) {
+void Mvector<T>::insert(iterator ix, T x)
+{
+  if (vsize == vcap)
+  {
     reserve(2 * vcap);
   }
 
-  for (iterator jx = v + vsize; jx != ix; jx--) {
+  for (iterator jx = v + vsize; jx != ix; jx--)
+  {
     *jx = *(jx - 1);
   }
   *ix = x;
@@ -144,25 +167,30 @@ void Mvector<T>::insert(iterator ix, T x) {
 }
 
 template <typename T>
-void Mvector<T>::erase(unsigned int i) {
+void Mvector<T>::erase(unsigned int i)
+{
   assert(i >= 0 && i < vsize);
-  for (int j = i; j < vsize - 1; j++) {
+  for (int j = i; j < vsize - 1; j++)
+  {
     v[j] = v[j + 1];
   }
   vsize--;
 }
 
 template <typename T>
-void Mvector<T>::erase(iterator ix) {
-  for (iterator jx = ix; jx != v + vsize; jx++) {
+void Mvector<T>::erase(iterator ix)
+{
+  for (iterator jx = ix; jx != v + vsize; jx++)
+  {
     *jx = *(jx + 1);
   }
   vsize--;
 }
 
 template <typename T>
-int Mvector<T>::size() const {
+int Mvector<T>::size() const
+{
   return vsize;
 }
 
-#endif  // MVECTOR_H
+#endif // MVECTOR_H
