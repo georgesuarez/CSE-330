@@ -1,3 +1,10 @@
+// CSE 330 Data Structures Lab
+// Name: George Suarez
+// Section: Monday
+// Term: Winter 2018
+// Lab 8: Mtree
+// File: Main.cpp
+
 #include <iostream>
 #include <ctime>
 #include <vector>
